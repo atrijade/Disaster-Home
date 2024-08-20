@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+   <meta charset="utf-8">
+   <title>Login</title>
+   <link rel="stylesheet" href="login.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+   <div class="wrapper">
+      <div class="title-text">
+         <div class="title login">
+            Login Form
+         </div>
+         <div class="title signup">
+            Register Here
+         </div>
+      </div>
+      <div class="form-container">
+         <div class="slide-controls">
+            <input type="radio" name="slide" id="login" checked>
+            <input type="radio" name="slide" id="signup">
+            <label for="login" class="slide login">Login</label>
+            <label for="signup" class="slide signup">Register</label>
+            <div class="slider-tab"></div>
+         </div>
+         <div class="form-inner">
+            <form action="#" class="login">
+               <div class="field">
+                  <input id="login_email" type="email" placeholder="Email Address" required>
+               </div>
+               <div class="field">
+                  <input id="login_password" type="password" placeholder="Password" required>
+               </div>
+               <div class="field btn">
+                  <div class="btn-layer"></div>
+                  <input id="login" type="submit" value="Login">
+               </div>
+               <div class="signup-link">
+                  <a href="">Not a member? Register</a>
+               </div>
+            </form>
+            <form action="#" class="signup">
+               <div class="field">
+                  <input type="text" id="username" placeholder="USN number" required>
+               </div>
+               <div class="field">
+                  <input type="email" id="email" placeholder="Email Address" required>
+               </div>
+               <div class="field">
+                  <input type="password" id="password" placeholder="Password" required>
+               </div>
+               <div class="field btn">
+                  <div class="btn-layer"></div>
+                  <input id="register" type="submit" value="Signup">
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+   <script>
+      const loginText = document.querySelector(".title-text .login");
+      const loginForm = document.querySelector("form.login");
+      const loginBtn = document.querySelector("label.login");
+      const signupBtn = document.querySelector("label.signup");
+      const signupLink = document.querySelector("form .signup-link a");
+      signupBtn.onclick = (() => {
+         loginForm.style.marginLeft = "-50%";
+         loginText.style.marginLeft = "-50%";
+      });
+      loginBtn.onclick = (() => {
+         loginForm.style.marginLeft = "0%";
+         loginText.style.marginLeft = "0%";
+      });
+      signupLink.onclick = (() => {
+         signupBtn.click();
+         return false;
+      });
+   </script>
+
+   <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
+      import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js";
+      import { getDatabase, ref, set, query, equalTo, onValue } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+      //import { getDatabase, ref, query, equalTo, onValue, set } from "firebase/database";
+
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+         apiKey: "AIzaSyAtnO4t33N8RVdUZxAGpL0YkEgsR1138sg",
+         authDomain: "login-for-disator-management.firebaseapp.com",
+         projectId: "login-for-disator-management",
+         storageBucket: "login-for-disator-management.appspot.com",
+         messagingSenderId: "478433817997",
+         appId: "1:478433817997:web:7fe49b23bc652882f179c4",
+         measurementId: "G-GPT9KBKP8V"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth();
+      const provider = new GoogleAuthProvider();
+      console.log(app);
+
+
+
+
+      //----- New Registration code start	  
+      document.getElementById("register").addEventListener("click", function () {
+         var username = document.getElementById('username').value;
+         var email = document.getElementById("email").value;
+         var password = document.getElementById("password").value;
+         //For new registration
+         createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+               // Signed in 
+               const user = userCredential.user;
+               console.log(user);
+               alert("Registration successfully!!");
+               // ...
+            })
+            .catch((error) => {
+               const errorCode = error.code;
+               const errorMessage = error.message;
+               // ..
+               console.log(errorMessage);
+               alert(error);
+            });
+      });
+      //----- End
+
+      //----- Logout code start
+      // document.getElementById("logout").addEventListener("click", function() {
+      //     signOut(auth).then(() => {
+      //         // Sign-out successful.
+      //         console.log('Sign-out successful.');
+      //         alert('Sign-out successful.');
+      //         document.getElementById('logout').style.display = 'none';
+      //       }).catch((error) => {
+      //         // An error happened.
+      //         console.log('An error happened.');
+      //       });
+      // });
+      // //----- End
+      // to get data from the FB server
+      // const userQuery = query(ref(db, 'users'),
+      //    equalTo("username", usersname),
+      //    equalTo("email", email)
+      // );
+
+      // // Attaching an event listener to the query
+      // onValue(userQuery, (snapshot) => {
+      //    // Retrieving the data from the snapshot
+      //    const userData = snapshot.val();
+
+      //    // Check if userData exists and do something with it
+      //    if (userData) {
+      //       // Assuming userData contains additional fields like usnNumber
+      //       const usnNumber = userData.usnNumber;
+      //       console.log("USN Number:", usnNumber);
+      //    } else {
+      //       console.log("No data found for the provided username and email.");
+      //    }
+      // });
+
+   </script>
+
+</html>
