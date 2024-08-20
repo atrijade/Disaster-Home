@@ -11,7 +11,12 @@
         <nav>
             <div class="container">
                 <h1>Disaster Management</h1>
-                <ul>
+                <div class="navbar-toggle" id="navbar-toggle">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <ul id="nav-menu">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#contacts">Contacts</a></li>
@@ -30,14 +35,13 @@
             <h2>Our Services</h2>
             <div style="border: 1px solid #687de0; padding: 20px; width: 300px; text-align: center; margin: 20px auto; border-radius: 30px; box-shadow: 5px 10px;">
                 <h2>Alert System</h2>
-                <p>Do you want to report an natural calamity in your area?</p>
+                <p>Do you want to report a natural calamity in your area?</p>
                 <a href="https://alert-chi.vercel.app/" style="text-decoration: none;">
-                    <button class="gobut" >
+                    <button class="gobut">
                         Go to Link
                     </button>
                 </a>
             </div>
-            
         </div>
         <div id="contacts">
             <h2>Contact Us</h2>
@@ -49,5 +53,14 @@
     <footer>
         <p>&copy; 2024 Disaster Management. All rights reserved.</p>
     </footer>
+
+    <script>
+        const toggleButton = document.getElementById('navbar-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        toggleButton.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
