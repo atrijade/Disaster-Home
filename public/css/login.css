@@ -19,14 +19,14 @@ body {
 }
 
 ::selection {
-  background: #fa4299;
+  background: #24337b;
   color: #fff;
 }
 
 .wrapper {
   overflow: hidden;
   max-width: 390px;
-  background: rgba(205, 173, 250, 0.9);
+  background: rgba(68, 79, 143, 0.9);
   border: solid 1px #818181;
   padding: 30px;
   border-radius: 10px;
